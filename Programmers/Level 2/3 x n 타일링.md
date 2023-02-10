@@ -1,5 +1,5 @@
 
-# 📚 2 x n 타일링
+# 📚 3 x n 타일링
 
 ## 📌 [문제링크](https://school.programmers.co.kr/learn/courses/30/lessons/12902)
 
@@ -13,7 +13,7 @@
 ### 문제 풀이
 
 
-<img src="Level%202/images/3xn%20tile.png" width="500" height="300" >
+<img src="./images/3xn%20tile.png" width="500" height="300" >
 
 - dp\[i\] = dp\[i-2\] * 3 + ( 특이한 모양 갯수를 끝에서 부터 놓은 경우의 수) + 새롭게 생긴 특이한 모양 2개  
 ex) dp\[8\] = dp\[6\] * 3 + (dp\[4\] * 2 + dp\[2\] * 2 )                    + 2
