@@ -12,7 +12,7 @@
 
 ### 문제 풀이
 
-<img src="./images/n_queen.png" width="500" height="300" >
+<img src="./images/n_queen.png" width="300" height="300" >
 
 - dfs를 이용한 풀이 1 
 
