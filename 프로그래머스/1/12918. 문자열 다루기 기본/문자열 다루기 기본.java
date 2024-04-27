@@ -13,7 +13,8 @@ class Solution {
         
         s.chars()
             .forEach(i-> {
-            if ( (i >= 65 && i <= 90) || (i>= 97 && i <= 122) ) {
+            // if ( (i >= 65 && i <= 90) || (i>= 97 && i <= 122) ) {
+            if (!Character.isDigit(i)) {
                 answer = false;
             }       
         });
