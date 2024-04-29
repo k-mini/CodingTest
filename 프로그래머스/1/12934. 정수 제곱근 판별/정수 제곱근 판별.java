@@ -1,9 +1,14 @@
+import java.math.*;
 
 class Solution {
     public long solution(long n) {
-        long answer = 0;
-        double number = (double) Math.sqrt(n);
-        System.out.println(number);
-        return number % 1 == 0 ? (long) Math.pow(number+1, 2) : -1 ;
+
+        double x = Math.sqrt(n);
+
+        if ( x == (long) x) {
+            return (long) Math.pow(x + 1, 2);
+        }
+
+        return -1;
     }
 }
