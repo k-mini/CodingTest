@@ -1,10 +1,9 @@
-import java.util.*;
 import java.util.stream.*;
-
+import java.util.*;
 class Solution {
     public double solution(int[] arr) {
-        double answer = 0;
-        return Arrays.stream(arr).asDoubleStream()
-            .average().getAsDouble();
+        return Arrays.stream(arr)
+                .average()
+                .getAsDouble();
     }
 }
