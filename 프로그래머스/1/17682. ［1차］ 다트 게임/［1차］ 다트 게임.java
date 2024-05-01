@@ -1,48 +1,46 @@
-import java.util.regex.*;
 import java.util.*;
+import java.util.regex.*;
+import java.util.stream.*;
 
 class Solution {
     public int solution(String dartResult) {
+        String reg = "([0-9]+)([SDT])([*#]?)";
+        int[] score = new int[3];
 
-        Pattern p = Pattern.compile("([0-9]+)([SDT])([*#]?)");
-        Matcher m = p.matcher(dartResult);
-        int[] result = new int[3];
+        Pattern p = Pattern.compile(reg);
+        Matcher matcher = p.matcher(dartResult);
         int idx = 0;
-        int count = m.groupCount();
+        while (matcher.find()) {
+            String group = matcher.group(1);
+            // System.out.println("group = " + group);
+            int nowScore = Integer.parseInt(matcher.group(1));
+            String bonus = matcher.group(2);
+            String option = matcher.group(3);
 
-        while (m.find()) {
-
-            int score = Integer.parseInt(m.group(1));
-            System.out.println("group = " + score);
-            String bonus = m.group(2);
-            System.out.println("bonus = " + bonus);
+            // 보너스
             if (bonus.equals("S")) {
-                result[idx] = score;
-            } else if (bonus.equals("D")) {
-                result[idx] = (int) Math.pow(score,2);
-            } else {
-                result[idx] = (int) Math.pow(score,3);
+                score[idx] = nowScore * 1;
+            }
+            else if (bonus.equals("D")) {
+                score[idx] = (int) Math.pow(nowScore,2);
+            }
+            else {
+                score[idx] = (int) Math.pow(nowScore, 3);
             }
 
-            String option = m.group(3);
-            System.out.println("option = " + option);
-            if (!option.isEmpty()) {
-                if (option.equals("*")) {
-                    result[idx] = result[idx] * 2;
-                    if (idx >= 1) {
-                        result[idx-1] = result[idx-1] * 2;
-                    }
-                } else {
-                    result[idx] = result[idx] * (-1);
-                }
+            // 옵션
+            if (option.equals("*")) {
+                if (idx != 0) score[idx-1] = score[idx-1] * 2;
+                score[idx] = score[idx] * 2;
+            } else if (option.equals("#")) {
+                score[idx] = score[idx] * (-1);
+            } else {
             }
-            System.out.println("Arrays.toString(result) = " + Arrays.toString(result));
-            idx ++;
-            System.out.println();
+
+            idx++;
         }
 
-        int value = Arrays.stream(result).sum();
-        System.out.println("value = " + value);
-        return value;
+        // System.out.println(Arrays.toString(score));
+        return Arrays.stream(score).sum();
     }
 }
