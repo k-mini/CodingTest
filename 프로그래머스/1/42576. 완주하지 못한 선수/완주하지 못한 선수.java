@@ -1,19 +1,17 @@
 import java.util.*;
 import java.util.stream.*;
+
 class Solution {
     public String solution(String[] participant, String[] completion) {
-        String answer = "";
-        Map<String, Long> pMap = Arrays.stream(participant)
-                         .collect(Collectors.groupingBy(i->i,Collectors.counting()) );
-        //System.out.println("pMap : " +pMap);
         
-        for (String s : completion) {
-            Long put = pMap.put(s, pMap.get(s) - 1);
+        Arrays.sort(participant);
+        Arrays.sort(completion);
+        int i=0;
+        for (i=0; i < completion.length; i++) {
+            if (!participant[i].equals(completion[i]))
+                break;
         }
         
-        //System.out.println("pMap : " +pMap);
-
-        return pMap.entrySet()
-            .stream().filter(entry->entry.getValue().equals(1L)).map(entry->entry.getKey()).findAny().get();
+        return participant[i];
     }
 }
