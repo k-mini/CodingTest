@@ -5,40 +5,51 @@ class Solution {
     public int solution(int[][] board, int[] moves) {
         int answer = 0;
         Stack<Integer> stack = new Stack<>();
-        Integer topDoll = null;
         
         for (int move : moves) {
-            Integer doll = getDoll(move, board);
             
-            if (doll.equals(0)){
+            int doll = pickDoll(board, move);
+            if (doll == -1) {
                 continue;
             }
-            
-            if ( !stack.empty() ){
-                topDoll = stack.peek();
-                if (doll.equals(topDoll)){
-                    stack.pop();
-                    answer += 2;
-                    continue;
-                }   
+            // System.out.format("doll : %s %n", doll);
+            // Arrays.stream(board)
+            //     .forEach(e->{
+            //         System.out.println(Arrays.toString(e));
+            //     });
+            // System.out.println();
+            if (!stack.empty()  && stack.peek() == doll) {
+                stack.pop();
+                answer += 2;
             }
-            stack.push(doll);
-        }
+            else {
+                stack.push(doll);
+            }
+        }   
+                
         return answer;
     }
     
-    // 인형 가져오기
-    public Integer getDoll(int move, int[][] board) {
-        int colNum = move - 1;
-        int length = board.length;
-        for (int rowNum = 0; rowNum < length; rowNum++){
-            if (board[rowNum][colNum] != 0){
-                int result = board[rowNum][colNum];
-                board[rowNum][colNum] = 0;
-                return result;
+    public int pickDoll(int[][] board, int colIdx) {
+        int colLength = board[0].length;
+        int rowLength = board.length;
+        colIdx -= 1;
+        int answer = 0;
+        for (int rowIdx=0; rowIdx < rowLength; rowIdx++) {
+            
+            if (board[rowIdx][colIdx] != 0) {
+                answer = board[rowIdx][colIdx];
+                board[rowIdx][colIdx] = 0;
+                return answer;
             }
-            continue;
         }
-        return 0;
+        return -1;
     }
+    
 }
+
+
+
+
+
+
